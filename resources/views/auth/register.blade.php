@@ -5,6 +5,7 @@
 
         @include('layouts.shared.head-css')
     </head>
+    <br><br><br><br><br><br><br><br><br>
 
     <body class="authentication-bg authentication-bg-pattern">
 
@@ -18,37 +19,37 @@
                                 
                                 <div class="text-center w-75 m-auto">
                                     <div class="auth-logo">
-                                        <a href="{{route('index')}}" class="logo logo-dark text-center">
+                                        <a href="{{route('dashboard.all')}}" class="logo logo-dark text-center">
                                             <span class="logo-lg">
                                                 <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="22">
                                             </span>
                                         </a>
                     
-                                        <a href="{{route('index')}}" class="logo logo-light text-center">
+                                        <a href="{{route('dashboard.all')}}" class="logo logo-light text-center">
                                             <span class="logo-lg">
                                                 <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="22">
                                             </span>
                                         </a>
                                     </div>
-                                    <p class="text-muted mb-4 mt-3">Don't have an account? Create your account, it takes less than a minute</p>
+                                    <br><br>
                                 </div>
 
-                                <form action="{{route('register')}}" method="POST" novalidate>
+                                
+                                <form action="{{route('user.store')}}" method="POST" novalidate>
                                 @csrf
-
                                     <div class="form-group">
-                                        <label for="fullname">Full Name</label>
-                                        <input class="form-control"@if($errors->has('name')) is-invalid @endif" name="name" type="text" 
-                                        id="fullname" placeholder="Enter your name" required 
-                                        value="{{ old('name')}}"/>
-                                        @if($errors->has('name'))
+                                        <label for="fullname">아이디</label>
+                                        <input class="form-control"@if($errors->has('id')) is-invalid @endif" name="id" type="text" 
+                                        id="fullname" placeholder="Enter id" required 
+                                        value="{{ old('id')}}"/>
+                                        @if($errors->has('id'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('name') }}</strong>
+                                            <strong>{{ $errors->first('id') }}</strong>
                                         </span>
                                         @endif    
                                     </div>
-                                    <div class="form-group">
-                                        <label for="emailaddress">Email address</label>
+                                    <!-- <div class="form-group">
+                                        <label for="emailaddress">이메일</label>
                                         <input class="form-control @if($errors->has('email')) is-invalid @endif" name="email" type="email" 
                                             id="emailaddress" required placeholder="Enter your email" 
                                             value="{{ old('email')}}"/>
@@ -58,41 +59,52 @@
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                         @endif
-                                    </div>
+                                    </div> -->
                                     <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input class="form-control @if($errors->has('password')) is-invalid @endif" name="password" type="password" required id="password" placeholder="Enter your password" />
+                                        <label for="password">비밀번호</label>
+                                        <input class="form-control @if($errors->has('password')) is-invalid @endif" name="password" type="password" required id="password" placeholder="Enter password" />
                                         @if($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
                                         </span>
                                         @endif
                                     </div>
-                                    <div class="form-group">
-                                        <label for="confirm_password">Confirm password</label>
+                                    <!-- <div class="form-group">
+                                        <label for="confirm_password">비밀번호 확인</label>
                                         <input class="form-control @if($errors->has('confirm_password')) is-invalid @endif" 
-                                            name="confirm_password" type="password" required id="confirm_password" placeholder="Enter your password" />
+                                            name="confirm_password" type="password" required id="confirm_password" placeholder="Enter password" />
                                         
                                         @if($errors->has('confirm_password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('confirm_password') }}</strong>
                                         </span>
                                         @endif
+                                    </div> -->
+                                    <div class="form-group">
+                                        <label>이름</label>
+                                        <input class="form-control" type="text" size="35" name="name" placeholder="Enter name">
                                     </div>
                                     <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="checkbox-signup">
-                                            <label class="custom-control-label" for="checkbox-signup">I accept <a href="javascript: void(0);" class="text-dark">Terms and Conditions</a></label>
-                                        </div>
+                                        <label>나이</label>
+                                        <input class="form-control" type="int" size="35" name="age" placeholder="Enter age">
                                     </div>
+                                    <div class="form-group">
+                                        <label>Team</label><br>
+                                        <select name="team">
+                                        <option value="1팀"> 1 팀 </option>
+                                        <option value="2팀"> 2 팀 </option>
+                                        <option value="3팀"> 3 팀 </option>
+                                        <option value="4팀"> 4 팀 </option>
+                                        </select>
+                                    </div>
+                                    <br>
                                     <div class="form-group mb-0 text-center">
-                                        <button class="btn btn-success btn-block" type="submit"> Sign Up </button>
+                                        <button class="btn btn-success btn-block" type="submit"> 추가하기 </button>
                                     </div>
 
                                 </form>
 
                                 <div class="text-center">
-                                    <h5 class="mt-3 text-muted">Sign up using</h5>
                                     <ul class="social-list list-inline mt-3 mb-0">
                                         <li class="list-inline-item">
                                             <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>
@@ -115,7 +127,9 @@
 
                         <div class="row mt-3">
                             <div class="col-12 text-center">
-                                <p class="text-white-50">Already have account?  <a href="{{route('second', ['auth', 'login'])}}" class="text-white ml-1"><b>Sign In</b></a></p>
+                                <a href="{{route('dashboard.all')}}" class="text-white-50"><b>메인화면으로 돌아가기</b></a>
+                                <br><br>
+                                <p class="text-white-50">이미 계정이 있습니까?  <a href="{{route('second', ['auth', 'login'])}}" class="text-white ml-1"><b>로그인</b></a></p>
                             </div> <!-- end col -->
                         </div>
                         <!-- end row -->
@@ -130,9 +144,7 @@
 
         <footer class="footer footer-alt">
             <script>document.write(new Date().getFullYear())</script> &copy; UBold theme by <a href="" class="text-white-50">Coderthemes</a> 
-        </footer>
-
+        </footer>   
         @include('layouts.shared.footer-script')
-        
     </body>
 </html>

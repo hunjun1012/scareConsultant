@@ -15,40 +15,7 @@ $('#dash-daterange').flatpickr({
 
 
 $( document ).ready(function() {
-    var createBarChart  = function(element, data, xkey, ykeys, labels, lineColors) {
-        Morris.Bar({
-            element: element,
-            data: data,
-            xkey: xkey,
-            ykeys: ykeys,
-            labels: labels,
-            dataLabels: false,
-            hideHover: 'auto',
-            resize: true, //defaulted to true
-            gridLineColor: 'rgba(65, 80, 95, 0.07)',
-            barSizeRatio: 0.2,
-            barColors: lineColors
-        });
-    };
-
     
-
-    var $barData  = [
-        { y: '2020-02', a: 1.2},
-        { y: '2020-03', a: 1.7},
-        { y: '2020-04', a: 1.7},
-        { y: '2020-05', a: 2.1},
-        { y: '2020-06', a: 2.2},
-        { y: '2020-07', a: 2.0},
-        { y: '2020-08', a: 2.3}
-    ];
-    var colors = ['#02c0ce'];
-    var dataColors = $("#statistics-chart").data('colors');
-    if (dataColors) {
-        colors = dataColors.split(",");
-    }
-    createBarChart('statistics-chart', $barData, 'y', ['a'], ["Statistics"], colors);
-
 
     var createCombineGraph = function(selector, ticks, labels, datas, colors) {
 		var data = [{
@@ -129,11 +96,12 @@ $( document ).ready(function() {
 	};
 
     //Combine graph data
-    var allGgroup = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 2], [9, 10], [10, 15], [11, 17], [12, 21], [13, 25], [14, 28], [15, 53], [16, 57], [17, 37], [18, 15], [19, 10], [20, 5], [21, 2], [22, 1], [23, 0]];
-    var managedGgroup = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 1], [9, 8], [10, 11], [11, 12], [12, 17], [13, 18], [14, 21], [15, 41], [16, 47], [17, 31], [18, 9], [19, 6], [20, 2], [21, 0], [22, 0], [23, 0]];
-    var average = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0], [8, 1.5], [9, 9], [10, 12], [11, 13], [12, 18], [13, 20], [14, 24], [15, 45], [16, 50], [17, 32], [18, 10], [19, 7], [20, 3], [21, 1], [22, 1], [23, 0]];
-    var ticks = [[0, "0시"], [1, ""], [2, "2시"], [3, ""], [4, "4시"], [5, ""], [6, "6시"], [7, ""], [8, "8시"], [9, ""], [10, "10시"], [11, ""], [12, "12시"], [13, ""], [14, "14시"], [15, ""], [16, "16시"], [17, ""], [18, "18시"], [19, ""], [20, "20시"], [21, ""], [22, "22시"], [23, ""]];
-    var combinelabels = ["전체", "집중관리 그룹", "평균"];
+    //@@@@@@@@@@@@@@일별체온현황 그래프@@@@@@@@@@@@@@@@@
+    var allGgroup = [[8, 37], [9, 31], [10, 34], [11, 35], [12, 36], [13, 35], [14, 36], [15, 35], [16, 36], [17, 33]];
+    var managedGgroup = [[8, 37], [9, 31], [10, 34], [11, 35], [12, 36], [13, 35], [14, 36], [15, 35], [16, 36], [17, 33]]; 
+    var average = [[8, 37], [9, 31], [10, 34], [11, 35], [12, 36], [13, 35], [14, 36], [15, 35], [16, 36], [17, 33]];
+    var ticks = [[8, "8시"], [9, "9시"], [10, "10시"], [11, "11시"], [12, "12시"], [13, "13시"], [14, "14시"], [15, "15시"], [16, "16시"], [17, "17시"], [18, "18시"]];
+    var combinelabels = [, ,"시간별 평균체온"];
     var combinedatas = [allGgroup, managedGgroup, average];
     var colors = ['#e3eaef','#f1556c','#1abc9c'];
     var dataColors = $("#combine-chart").data('colors');
@@ -333,4 +301,24 @@ function hexToRGB(hex, alpha) {
     } else {
         return "rgb(" + r + ", " + g + ", " + b + ")";
     }
+}
+
+$(document).ready(function () {
+    setInterval(getUserDatas, 3 * 1000);
+});
+//ApiController에서 users 가져오고 실시간 업데이트
+function getUserDatas(){
+    $.ajax({
+        type: 'GET',
+        url: '{{route("api.users")}}',
+        success: function(response) {
+            console.log('success');
+            data = $('#users_average_temperature').html(response.average);
+        },
+        //에러메세지
+        error: function(response) {
+            console.log('error');
+            console.log(response);
+        }
+    });
 }

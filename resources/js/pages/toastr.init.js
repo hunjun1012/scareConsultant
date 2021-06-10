@@ -26,9 +26,9 @@ File: Toastr init js
     NotificationApp.prototype.send = function(heading, body, position, loaderBgColor, icon, hideAfter, stack, showHideTransition) {
         // default      
         if (!hideAfter)
-            hideAfter = 3000;
+            hideAfter = 30000;
         if (!stack)
-            stack = 1;
+            stack = 10;
 
         var options = {
             heading: heading,
@@ -57,7 +57,6 @@ function($) {
     "use strict";
     
     // notification examples
-
     $("#toastr-one").on('click', function (e) {
         $.NotificationApp.send("Heads up!", "This alert needs your attention, but it is not super important.", 'top-right', '#3b98b5', 'info');
     });

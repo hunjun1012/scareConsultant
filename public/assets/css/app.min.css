@@ -2938,7 +2938,7 @@ body.authentication-bg-pattern {
   position: relative;
 }
 .timeline .timeline-box {
-  background: #fff;
+  background: rgb(240, 236, 236);
   display: block;
   margin: 15px 0;
   position: relative;

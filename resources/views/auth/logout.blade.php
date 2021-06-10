@@ -5,7 +5,7 @@
 
         @include('layouts.shared.head-css')
     </head>
-
+    <br><br><br><br><br><br><br><br><br>
     <body class="authentication-bg authentication-bg-pattern">
 
         <div class="account-pages mt-5 mb-5">
@@ -18,13 +18,13 @@
                                 
                                 <div class="text-center w-75 m-auto">
                                     <div class="auth-logo">
-                                        <a href="{{route('index')}}" class="logo logo-dark text-center">
+                                        <a href="{{route('dashboard.all')}}" class="logo logo-dark text-center">
                                             <span class="logo-lg">
-                                                <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="22">
+                                                <img sr c="{{asset('assets/images/logo-dark.png')}}" alt="" height="22">
                                             </span>
                                         </a>
                     
-                                        <a href="{{route('index')}}" class="logo logo-light text-center">
+                                        <a href="{{route('dashboard.all')}}" class="logo logo-light text-center">
                                             <span class="logo-lg">
                                                 <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="22">
                                             </span>
@@ -53,7 +53,9 @@
 
                         <div class="row mt-3">
                             <div class="col-12 text-center">
-                                <p class="text-white-50">Back to <a href="{{route('second', ['auth', 'login'])}}" class="text-white ml-1"><b>Sign In</b></a></p>
+                            <a href="{{route(dashboard.all)}}" class="text-white-50"><b>메인화면으로 돌아가기</b></a>
+                            <br><br>
+                                <p class="text-white-50">Back to <a href="{{route('second', ['auth', 'login'])}}" class="text-white ml-1"><b>로그인</b></a></p>
                             </div> <!-- end col -->
                         </div>
                         <!-- end row -->
